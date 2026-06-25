@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Colors, Typography, Spacing, BorderRadius } from '@/constants/theme';
+import { Typography, Spacing, BorderRadius } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 
 interface ErrorStateProps {
   message: string;
@@ -8,6 +9,9 @@ interface ErrorStateProps {
 }
 
 export function ErrorState({ message, onRetry }: ErrorStateProps) {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
+
   return (
     <View style={styles.container}>
       {/* Pokéball icon using text */}
@@ -40,6 +44,9 @@ export function EmptyState({
   subtitle,
   icon = '🔍',
 }: EmptyStateProps) {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
+
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
@@ -51,49 +58,50 @@ export function EmptyState({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: Spacing.xxl,
-    minHeight: 300,
-  },
-  iconContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: Colors.surface,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: Spacing.lg,
-  },
-  icon: {
-    fontSize: 36,
-  },
-  title: {
-    color: Colors.textPrimary,
-    fontSize: Typography.sizes.lg,
-    fontWeight: Typography.weights.bold,
-    textAlign: 'center',
-    marginBottom: Spacing.sm,
-  },
-  message: {
-    color: Colors.textSecondary,
-    fontSize: Typography.sizes.md,
-    textAlign: 'center',
-    lineHeight: 22,
-    marginBottom: Spacing.xl,
-  },
-  retryButton: {
-    backgroundColor: Colors.primary,
-    paddingHorizontal: Spacing.xl,
-    paddingVertical: Spacing.md,
-    borderRadius: BorderRadius.md,
-  },
-  retryText: {
-    color: Colors.textPrimary,
-    fontSize: Typography.sizes.base,
-    fontWeight: Typography.weights.bold,
-  },
-});
+const getStyles = (colors: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: Spacing.xxl,
+      minHeight: 300,
+    },
+    iconContainer: {
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      backgroundColor: colors.surface,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: Spacing.lg,
+    },
+    icon: {
+      fontSize: 36,
+    },
+    title: {
+      color: colors.textPrimary,
+      fontSize: Typography.sizes.lg,
+      fontWeight: Typography.weights.bold,
+      textAlign: 'center',
+      marginBottom: Spacing.sm,
+    },
+    message: {
+      color: colors.textSecondary,
+      fontSize: Typography.sizes.md,
+      textAlign: 'center',
+      lineHeight: 22,
+      marginBottom: Spacing.xl,
+    },
+    retryButton: {
+      backgroundColor: colors.primary,
+      paddingHorizontal: Spacing.xl,
+      paddingVertical: Spacing.md,
+      borderRadius: BorderRadius.md,
+    },
+    retryText: {
+      color: '#ffffff', // High contrast white text over primary red background
+      fontSize: Typography.sizes.base,
+      fontWeight: Typography.weights.bold,
+    },
+  });

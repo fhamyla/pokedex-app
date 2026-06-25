@@ -9,7 +9,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import { TypeBadge } from './TypeBadge';
 import {
-  Colors,
   Typography,
   Spacing,
   BorderRadius,
@@ -17,6 +16,7 @@ import {
   formatPokedexNumber,
   capitalize,
 } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const CARD_WIDTH = (SCREEN_WIDTH - Spacing.base * 3) / 2;
@@ -32,6 +32,8 @@ interface PokemonCardProps {
 
 export function PokemonCard({ id, name, sprite, types }: PokemonCardProps) {
   const router = useRouter();
+  const { colors, isDark } = useTheme();
+  const styles = getStyles(colors);
   const scale = useSharedValue(1);
   const primaryType = types[0] ?? 'normal';
   const typeColor = getTypeColor(primaryType);
@@ -63,12 +65,12 @@ export function PokemonCard({ id, name, sprite, types }: PokemonCardProps) {
       <View
         style={[
           styles.accentGlow,
-          { backgroundColor: typeColor + '15' },
+          { backgroundColor: typeColor + (isDark ? '15' : '10') },
         ]}
       />
 
       {/* Pokédex number */}
-      <Text style={[styles.pokedexNumber, { color: typeColor + '50' }]}>
+      <Text style={[styles.pokedexNumber, { color: typeColor + (isDark ? '50' : '75') }]}>
         {formatPokedexNumber(id)}
       </Text>
 
@@ -103,64 +105,65 @@ export function PokemonCard({ id, name, sprite, types }: PokemonCardProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    width: CARD_WIDTH,
-    backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.lg,
-    padding: Spacing.md,
-    marginBottom: Spacing.base,
-    alignItems: 'center',
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: Colors.surfaceLight + '60',
-  },
-  accentGlow: {
-    position: 'absolute',
-    top: -30,
-    right: -30,
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  pokedexNumber: {
-    position: 'absolute',
-    top: Spacing.sm,
-    right: Spacing.md,
-    fontSize: Typography.sizes.xs,
-    fontWeight: Typography.weights.bold,
-  },
-  spriteContainer: {
-    width: 90,
-    height: 90,
-    marginTop: Spacing.sm,
-    marginBottom: Spacing.sm,
-  },
-  sprite: {
-    width: '100%',
-    height: '100%',
-  },
-  spritePlaceholder: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 45,
-    backgroundColor: Colors.surfaceLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  placeholderText: {
-    fontSize: Typography.sizes.xl,
-    color: Colors.textMuted,
-  },
-  name: {
-    color: Colors.textPrimary,
-    fontSize: Typography.sizes.md,
-    fontWeight: Typography.weights.semibold,
-    marginBottom: Spacing.xs,
-  },
-  typesRow: {
-    flexDirection: 'row',
-    gap: Spacing.xs,
-    marginTop: 2,
-  },
-});
+const getStyles = (colors: any) =>
+  StyleSheet.create({
+    card: {
+      width: CARD_WIDTH,
+      backgroundColor: colors.surface,
+      borderRadius: BorderRadius.lg,
+      padding: Spacing.md,
+      marginBottom: Spacing.base,
+      alignItems: 'center',
+      overflow: 'hidden',
+      borderWidth: 1,
+      borderColor: colors.surfaceLight + '60',
+    },
+    accentGlow: {
+      position: 'absolute',
+      top: -30,
+      right: -30,
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+    },
+    pokedexNumber: {
+      position: 'absolute',
+      top: Spacing.sm,
+      right: Spacing.md,
+      fontSize: Typography.sizes.xs,
+      fontWeight: Typography.weights.bold,
+    },
+    spriteContainer: {
+      width: 90,
+      height: 90,
+      marginTop: Spacing.sm,
+      marginBottom: Spacing.sm,
+    },
+    sprite: {
+      width: '100%',
+      height: '100%',
+    },
+    spritePlaceholder: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 45,
+      backgroundColor: colors.surfaceLight,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    placeholderText: {
+      fontSize: Typography.sizes.xl,
+      color: colors.textMuted,
+    },
+    name: {
+      color: colors.textPrimary,
+      fontSize: Typography.sizes.md,
+      fontWeight: Typography.weights.semibold,
+      marginBottom: Spacing.xs,
+    },
+    typesRow: {
+      flexDirection: 'row',
+      gap: Spacing.xs,
+      marginTop: 2,
+    },
+  });

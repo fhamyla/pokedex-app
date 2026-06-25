@@ -1,16 +1,25 @@
 import { Tabs } from 'expo-router';
 import { View, StyleSheet } from 'react-native';
-import { Colors, Spacing } from '@/constants/theme';
+import { Spacing } from '@/constants/theme';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function TabLayout() {
+  const { colors } = useTheme();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarStyle: styles.tabBar,
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textMuted,
+        tabBarStyle: [
+          styles.tabBar,
+          {
+            backgroundColor: colors.surface,
+            borderTopColor: colors.surfaceLight + '40',
+          },
+        ],
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textMuted,
         tabBarLabelStyle: styles.tabLabel,
         tabBarItemStyle: styles.tabItem,
       }}
@@ -39,8 +48,6 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: Colors.surface,
-    borderTopColor: Colors.surfaceLight + '40',
     borderTopWidth: 1,
     height: 88,
     paddingBottom: Spacing.xl,

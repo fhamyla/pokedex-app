@@ -1,23 +1,23 @@
 // ─── Pokédex Design System ──────────────────────────────────────────
 
-export const Colors = {
+export const LightColors = {
   // Core palette
-  background: '#0f1923',
-  surface: '#1a2332',
-  surfaceLight: '#243447',
-  card: '#1e2d3d',
-  cardHover: '#253a4e',
+  background: '#f8fafc',
+  surface: '#ffffff',
+  surfaceLight: '#e2e8f0',
+  card: '#ffffff',
+  cardHover: '#f1f5f9',
 
   // Text
-  textPrimary: '#e8edf2',
-  textSecondary: '#8899aa',
-  textMuted: '#5a6b7c',
+  textPrimary: '#0f172a',
+  textSecondary: '#475569',
+  textMuted: '#94a3b8',
 
   // Accents
   primary: '#e63946',
   primaryLight: '#ff6b6b',
-  accent: '#f4d03f',
-  accentDim: '#c4a72f',
+  accent: '#d97706',
+  accentDim: '#b45309',
 
   // Status
   success: '#2ecc71',
@@ -46,6 +46,36 @@ export const Colors = {
     fairy: '#EE99AC',
   } as Record<string, string>,
 };
+
+export const DarkColors = {
+  // Core palette
+  background: '#0f1923',
+  surface: '#1a2332',
+  surfaceLight: '#243447',
+  card: '#1e2d3d',
+  cardHover: '#253a4e',
+
+  // Text
+  textPrimary: '#e8edf2',
+  textSecondary: '#8899aa',
+  textMuted: '#5a6b7c',
+
+  // Accents
+  primary: '#e63946',
+  primaryLight: '#ff6b6b',
+  accent: '#f4d03f',
+  accentDim: '#c4a72f',
+
+  // Status
+  success: '#2ecc71',
+  error: '#e74c3c',
+  warning: '#f39c12',
+
+  // Pokémon type colors
+  typeColors: LightColors.typeColors,
+};
+
+export const Colors = DarkColors;
 
 export const Typography = {
   sizes: {
@@ -88,7 +118,7 @@ export const BorderRadius = {
 
 /** Get the color for a Pokémon type, with fallback */
 export function getTypeColor(typeName: string): string {
-  return Colors.typeColors[typeName.toLowerCase()] ?? Colors.textMuted;
+  return LightColors.typeColors[typeName.toLowerCase()] ?? LightColors.textMuted;
 }
 
 /** Format Pokédex number as #001, #025, etc. */

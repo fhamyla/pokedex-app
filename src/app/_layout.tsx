@@ -1,16 +1,28 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { FavoritesProvider } from '@/context/FavoritesContext';
-import { Colors } from '@/constants/theme';
+import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 
 export default function RootLayout() {
   return (
-    <FavoritesProvider>
-      <StatusBar style="light" />
+    <ThemeProvider>
+      <FavoritesProvider>
+        <RootLayoutContent />
+      </FavoritesProvider>
+    </ThemeProvider>
+  );
+}
+
+function RootLayoutContent() {
+  const { colors, isDark } = useTheme();
+
+  return (
+    <>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
       <Stack
         screenOptions={{
           headerShown: false,
-          contentStyle: { backgroundColor: Colors.background },
+          contentStyle: { backgroundColor: colors.background },
           animation: 'slide_from_right',
         }}
       >
@@ -24,6 +36,6 @@ export default function RootLayout() {
           }}
         />
       </Stack>
-    </FavoritesProvider>
+    </>
   );
 }

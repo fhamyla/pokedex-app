@@ -6,7 +6,8 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
-import { Colors, Typography, Spacing, BorderRadius } from '@/constants/theme';
+import { Typography, Spacing, BorderRadius } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 
 interface StatBarProps {
   label: string;
@@ -33,6 +34,8 @@ function getStatColor(value: number): string {
 }
 
 export function StatBar({ label, value, maxValue = 255 }: StatBarProps) {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
   const progress = useSharedValue(0);
   const abbreviation = STAT_ABBREVIATIONS[label] ?? label.toUpperCase().slice(0, 3);
   const barColor = getStatColor(value);
@@ -67,37 +70,38 @@ export function StatBar({ label, value, maxValue = 255 }: StatBarProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: Spacing.sm,
-  },
-  label: {
-    color: Colors.textSecondary,
-    fontSize: Typography.sizes.sm,
-    fontWeight: Typography.weights.semibold,
-    width: 36,
-  },
-  value: {
-    color: Colors.textPrimary,
-    fontSize: Typography.sizes.sm,
-    fontWeight: Typography.weights.bold,
-    width: 36,
-    textAlign: 'right',
-    marginRight: Spacing.md,
-  },
-  trackContainer: {
-    flex: 1,
-  },
-  track: {
-    height: 6,
-    backgroundColor: Colors.surfaceLight,
-    borderRadius: BorderRadius.pill,
-    overflow: 'hidden',
-  },
-  fill: {
-    height: '100%',
-    borderRadius: BorderRadius.pill,
-  },
-});
+const getStyles = (colors: any) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: Spacing.sm,
+    },
+    label: {
+      color: colors.textSecondary,
+      fontSize: Typography.sizes.sm,
+      fontWeight: Typography.weights.semibold,
+      width: 36,
+    },
+    value: {
+      color: colors.textPrimary,
+      fontSize: Typography.sizes.sm,
+      fontWeight: Typography.weights.bold,
+      width: 36,
+      textAlign: 'right',
+      marginRight: Spacing.md,
+    },
+    trackContainer: {
+      flex: 1,
+    },
+    track: {
+      height: 6,
+      backgroundColor: colors.surfaceLight,
+      borderRadius: BorderRadius.pill,
+      overflow: 'hidden',
+    },
+    fill: {
+      height: '100%',
+      borderRadius: BorderRadius.pill,
+    },
+  });
