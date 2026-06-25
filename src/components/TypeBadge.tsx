@@ -1,3 +1,5 @@
+// © fhamyla
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Colors, Typography, Spacing, BorderRadius, getTypeColor } from '@/constants/theme';

@@ -1,3 +1,5 @@
+// © fhamyla
+
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { Image } from 'expo-image';

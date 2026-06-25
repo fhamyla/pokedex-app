@@ -1,4 +1,7 @@
+// © fhamyla
+
 // ─── Pokédex Design System ──────────────────────────────────────────
+
 
 export const LightColors = {
   // Core palette

@@ -1,3 +1,5 @@
+// © fhamyla
+
 import React from 'react';
 import {
   View,

@@ -1,3 +1,5 @@
+// © fhamyla
+
 import type {
   PokemonListResponse,
   PokemonDetail,

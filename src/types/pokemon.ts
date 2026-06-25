@@ -1,4 +1,7 @@
+// © fhamyla
+
 // ─── PokéAPI Response Types ─────────────────────────────────────────
+
 
 export interface PokemonListResponse {
   count: number;

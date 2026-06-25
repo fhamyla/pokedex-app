@@ -1,3 +1,5 @@
+// © fhamyla
+
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { fetchPokemonList, fetchPokemonDetail } from '@/api/pokemon';
 import type { PokemonCardData } from '@/types/pokemon';

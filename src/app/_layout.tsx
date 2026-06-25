@@ -1,3 +1,5 @@
+// © fhamyla
+
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { FavoritesProvider } from '@/context/FavoritesContext';
