@@ -571,7 +571,7 @@ export default function TriviaScreen() {
                   { color: gameStatus === 'correct' ? colors.success : colors.error },
                 ]}
               >
-                {gameStatus === 'correct' ? 'Correct! 🎉' : `Wrong! The answer was ${capitalize(targetPokemon.name.replace('-', ' '))}`}
+                {gameStatus === 'correct' ? 'Correct!' : `Wrong! The answer was ${capitalize(targetPokemon.name.replace('-', ' '))}`}
               </Text>
             </View>
           )}
@@ -715,7 +715,7 @@ const getStyles = (colors: any, isDark: boolean) =>
     },
     card: {
       width: '100%',
-      height: SCREEN_WIDTH * 0.65,
+      height: SCREEN_WIDTH * 0.48,
       backgroundColor: colors.surface,
       borderRadius: BorderRadius.lg,
       borderWidth: 1,
@@ -732,16 +732,16 @@ const getStyles = (colors: any, isDark: boolean) =>
     },
     bgCircle: {
       position: 'absolute',
-      width: SCREEN_WIDTH * 0.5,
-      height: SCREEN_WIDTH * 0.5,
-      borderRadius: SCREEN_WIDTH * 0.25,
+      width: SCREEN_WIDTH * 0.38,
+      height: SCREEN_WIDTH * 0.38,
+      borderRadius: SCREEN_WIDTH * 0.19,
     },
     loader: {
       transform: [{ scale: 1.2 }],
     },
     spriteWrapper: {
-      width: SCREEN_WIDTH * 0.45,
-      height: SCREEN_WIDTH * 0.45,
+      width: SCREEN_WIDTH * 0.35,
+      height: SCREEN_WIDTH * 0.35,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -782,8 +782,8 @@ const getStyles = (colors: any, isDark: boolean) =>
     optionBtn: {
       width: (SCREEN_WIDTH - Spacing.base * 2 - Spacing.sm) / 2,
       backgroundColor: colors.surface,
-      borderRadius: BorderRadius.lg,
-      paddingVertical: Spacing.base,
+      borderRadius: BorderRadius.md,
+      paddingVertical: 10,
       paddingHorizontal: Spacing.md,
       alignItems: 'center',
       justifyContent: 'center',
@@ -797,7 +797,7 @@ const getStyles = (colors: any, isDark: boolean) =>
     },
     optionText: {
       color: colors.textPrimary,
-      fontSize: Typography.sizes.base,
+      fontSize: Typography.sizes.md,
       fontWeight: Typography.weights.semibold,
       textAlign: 'center',
     },
