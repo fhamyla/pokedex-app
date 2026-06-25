@@ -1,56 +1,91 @@
-# Welcome to your Expo app 👋
+# 🔴 Pokédex — React Native Expo App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A premium dark-themed Pokédex app built with **Expo + TypeScript** that fetches and displays Pokémon data from PokéAPI.
 
-## Get started
+## 🎯 API Choice
 
-1. Install dependencies
+**[PokéAPI](https://pokeapi.co/)** — A free, open RESTful API for Pokémon data. No API key required.
 
-   ```bash
-   npm install
-   ```
+- **Base URL:** `https://pokeapi.co/api/v2/`
+- **Endpoints used:**
+  - `/pokemon?limit=20&offset=0` — Paginated Pokémon list
+  - `/pokemon/{id}` — Full Pokémon detail (sprites, stats, types, abilities)
+  - `/pokemon-species/{id}` — Flavor text descriptions
 
-2. Start the app
+## 🚀 Setup Instructions
 
-   ```bash
-   npx expo start
-   ```
+### Prerequisites
 
-In the output, you'll find options to open the app in a
+- Node.js 18+ installed
+- Xcode installed (for iOS simulator)
+- macOS (required for iOS development)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Installation
 
 ```bash
-npm run reset-project
+# Clone the repository
+git clone <repo-url>
+cd pokedex-app
+
+# Install dependencies
+npm install
+
+# Run on iOS simulator (native build via Xcode)
+npx expo run:ios
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+> **Note:** This app uses `npx expo run:ios` for a native build — not Expo Go.
 
-### Other setup steps
+## 📱 Features
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+### Core
+- ✅ Fetch Pokémon data on mount with infinite scroll pagination
+- ✅ Display Pokémon in a beautiful 2-column grid
+- ✅ Handle loading states with animated skeleton placeholders
+- ✅ Handle errors gracefully with retry functionality
+- ✅ Pull-to-refresh support
 
-## Learn more
+### Navigation (Expo Router)
+- ✅ Bottom tab navigation (Pokédex + Favorites)
+- ✅ Stack navigation for detail screen (slide-up animation)
+- ✅ Deep linking support via Expo Router
 
-To learn more about developing your project with Expo, look at the following resources:
+### State Management (React Context)
+- ✅ Favorites system with `useFavorites()` hook
+- ✅ Persisted to AsyncStorage (survives app restarts)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Premium UI
+- ✅ Dark theme with Pokémon-type-colored accents
+- ✅ Animated stat bars (react-native-reanimated)
+- ✅ Press scale animations on cards
+- ✅ Shimmer loading skeletons
+- ✅ Type-colored badges
+- ✅ Hero sprite with gradient background on detail screen
+- ✅ Search/filter by name or Pokédex number
 
-## Join the community
+## 🏗 Architecture
 
-Join our community of developers creating universal apps.
+```
+src/
+├── api/              # API layer (fetch functions + helpers)
+├── app/              # Expo Router screens
+│   ├── (tabs)/       # Tab navigator (Home + Favorites)
+│   └── pokemon/      # Detail screen ([id].tsx)
+├── components/       # Reusable UI components
+├── constants/        # Theme (colors, typography, spacing)
+├── context/          # React Context (FavoritesProvider)
+├── hooks/            # Custom hooks (usePokemonList, usePokemonDetail)
+└── types/            # TypeScript interfaces
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🛠 Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| Expo SDK 56 | Framework |
+| TypeScript | Language |
+| Expo Router | File-based navigation |
+| React Native Reanimated | Animations |
+| expo-image | Optimized image loading |
+| AsyncStorage | Persistent storage |
+| PokéAPI | Data source |
