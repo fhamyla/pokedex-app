@@ -2,6 +2,20 @@
 
 A premium dark-themed Pokédex app built with **Expo + TypeScript** that fetches and displays Pokémon data from PokéAPI.
 
+## 📱 UI/UX Showcase
+
+### 🤖 Android Screenshots
+
+| Pokédex (Dark) | Trivia Game (Dark) | Favorites (Dark) | Favorites (Light) |
+| :---: | :---: | :---: | :---: |
+| <img src="./assets/images/screenshots/android-pokedex-dark.png" width="200" /> | <img src="./assets/images/screenshots/android-trivia-dark.png" width="200" /> | <img src="./assets/images/screenshots/android-favorites-empty-dark.png" width="200" /> | <img src="./assets/images/screenshots/android-favorites-empty-light.png" width="200" /> |
+
+### 🍎 iOS Screenshots
+
+| Pokédex (Dark) | Pokédex (Light) | Favorites (Dark) | Favorites (Light) | Trivia (Light) |
+| :---: | :---: | :---: | :---: | :---: |
+| <img src="./assets/images/screenshots/ios-pokedex-dark.png" width="200" /> | <img src="./assets/images/screenshots/ios-pokedex-light.png" width="200" /> | <img src="./assets/images/screenshots/ios-favorites-dark.png" width="200" /> | <img src="./assets/images/screenshots/ios-favorites-light.png" width="200" /> | <img src="./assets/images/screenshots/ios-trivia-light.png" width="200" /> |
+
 ## 🎯 API Choice
 
 **[PokéAPI](https://pokeapi.co/)** — A free, open RESTful API for Pokémon data. No API key required.
