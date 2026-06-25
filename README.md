@@ -16,9 +16,9 @@ A premium dark-themed Pokédex app built with **Expo + TypeScript** that fetches
 
 ### Prerequisites
 
-- Node.js 18+ installed
-- Xcode installed (for iOS simulator)
-- macOS (required for iOS development)
+- **Node.js**: 18+ installed
+- **For iOS (macOS only)**: Xcode installed (for iOS simulator)
+- **For Android**: Android Studio, Android SDK, and an Android Virtual Device (AVD) configured
 
 ### Installation
 
@@ -29,12 +29,19 @@ cd pokedex-app
 
 # Install dependencies
 npm install
-
-# Run on iOS simulator (native build via Xcode)
-npx expo run:ios
 ```
 
-> **Note:** This app uses `npx expo run:ios` for a native build — not Expo Go.
+### Running the App
+
+```bash
+# Run on iOS simulator (native build via Xcode, macOS only)
+npx expo run:ios
+
+# Run on Android emulator or connected device (native build via Android Studio SDK)
+npx expo run:android
+```
+
+> **Note:** This app uses a native build workflow (`npx expo run:ios` / `npx expo run:android`) to support high-performance native modules — not Expo Go.
 
 ## 📱 Features
 
