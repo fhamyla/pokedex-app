@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -159,25 +160,25 @@ export default function PokemonDetailScreen() {
           )}
 
           {/* ─── About Card ───────────────────────────────── */}
-          <View style={styles.card}>
-            <Text style={styles.sectionTitle}>About</Text>
+          <View style={[styles.card, Platform.OS === 'android' && styles.smallCard]}>
+            <Text style={[styles.sectionTitle, Platform.OS === 'android' && styles.sectionTitleAndroid]}>About</Text>
             <View style={styles.aboutGrid}>
               <View style={styles.aboutItem}>
-                <Ionicons name="resize-outline" size={18} color={colors.textSecondary} />
-                <Text style={styles.aboutValue}>{heightM} m</Text>
-                <Text style={styles.aboutLabel}>Height</Text>
+                <Ionicons name="resize-outline" size={Platform.OS === 'android' ? 16 : 18} color={colors.textSecondary} />
+                <Text style={[styles.aboutValue, Platform.OS === 'android' && styles.aboutValueAndroid]}>{heightM} m</Text>
+                <Text style={[styles.aboutLabel, Platform.OS === 'android' && styles.aboutLabelAndroid]}>Height</Text>
               </View>
-              <View style={styles.aboutDivider} />
+              <View style={[styles.aboutDivider, Platform.OS === 'android' && styles.aboutDividerAndroid]} />
               <View style={styles.aboutItem}>
-                <Ionicons name="barbell-outline" size={18} color={colors.textSecondary} />
-                <Text style={styles.aboutValue}>{weightKg} kg</Text>
-                <Text style={styles.aboutLabel}>Weight</Text>
+                <Ionicons name="barbell-outline" size={Platform.OS === 'android' ? 16 : 18} color={colors.textSecondary} />
+                <Text style={[styles.aboutValue, Platform.OS === 'android' && styles.aboutValueAndroid]}>{weightKg} kg</Text>
+                <Text style={[styles.aboutLabel, Platform.OS === 'android' && styles.aboutLabelAndroid]}>Weight</Text>
               </View>
-              <View style={styles.aboutDivider} />
+              <View style={[styles.aboutDivider, Platform.OS === 'android' && styles.aboutDividerAndroid]} />
               <View style={styles.aboutItem}>
-                <Ionicons name="flash-outline" size={18} color={colors.textSecondary} />
-                <Text style={styles.aboutValue}>{pokemon.base_experience ?? '—'}</Text>
-                <Text style={styles.aboutLabel}>Base Exp</Text>
+                <Ionicons name="flash-outline" size={Platform.OS === 'android' ? 16 : 18} color={colors.textSecondary} />
+                <Text style={[styles.aboutValue, Platform.OS === 'android' && styles.aboutValueAndroid]}>{pokemon.base_experience ?? '—'}</Text>
+                <Text style={[styles.aboutLabel, Platform.OS === 'android' && styles.aboutLabelAndroid]}>Base Exp</Text>
               </View>
             </View>
           </View>
@@ -206,8 +207,8 @@ export default function PokemonDetailScreen() {
           </View>
 
           {/* ─── Stats Card ───────────────────────────────── */}
-          <View style={styles.card}>
-            <Text style={styles.sectionTitle}>Base Stats</Text>
+          <View style={[styles.card, Platform.OS === 'android' && styles.smallCard]}>
+            <Text style={[styles.sectionTitle, Platform.OS === 'android' && styles.sectionTitleAndroid]}>Base Stats</Text>
             {pokemon.stats.map((s) => (
               <StatBar
                 key={s.stat.name}
@@ -216,9 +217,9 @@ export default function PokemonDetailScreen() {
               />
             ))}
             {/* Total */}
-            <View style={styles.totalRow}>
-              <Text style={styles.totalLabel}>TOT</Text>
-              <Text style={styles.totalValue}>
+            <View style={[styles.totalRow, Platform.OS === 'android' && styles.totalRowAndroid]}>
+              <Text style={[styles.totalLabel, Platform.OS === 'android' && styles.totalLabelAndroid]}>TOT</Text>
+              <Text style={[styles.totalValue, Platform.OS === 'android' && styles.totalValueAndroid]}>
                 {pokemon.stats.reduce((sum, s) => sum + s.base_stat, 0)}
               </Text>
             </View>
@@ -367,11 +368,19 @@ const getStyles = (colors: any) =>
       borderWidth: 1,
       borderColor: colors.surfaceLight + '40',
     },
+    smallCard: {
+      padding: Spacing.sm,
+      marginTop: Spacing.sm,
+    },
     sectionTitle: {
       color: colors.textPrimary,
       fontSize: Typography.sizes.lg,
       fontWeight: Typography.weights.bold,
       marginBottom: Spacing.md,
+    },
+    sectionTitleAndroid: {
+      fontSize: Typography.sizes.base,
+      marginBottom: Spacing.sm,
     },
 
     // About
@@ -390,15 +399,26 @@ const getStyles = (colors: any) =>
       fontWeight: Typography.weights.bold,
       marginTop: Spacing.sm,
     },
+    aboutValueAndroid: {
+      fontSize: Typography.sizes.sm,
+      marginTop: Spacing.xs,
+    },
     aboutLabel: {
       color: colors.textMuted,
       fontSize: Typography.sizes.sm,
       marginTop: Spacing.xs,
     },
+    aboutLabelAndroid: {
+      fontSize: Typography.sizes.xs,
+      marginTop: 2,
+    },
     aboutDivider: {
       width: 1,
       height: 50,
       backgroundColor: colors.surfaceLight,
+    },
+    aboutDividerAndroid: {
+      height: 35,
     },
 
     // Abilities
@@ -438,11 +458,19 @@ const getStyles = (colors: any) =>
       borderTopWidth: 1,
       borderTopColor: colors.surfaceLight,
     },
+    totalRowAndroid: {
+      marginTop: Spacing.xs,
+      paddingTop: Spacing.xs,
+    },
     totalLabel: {
       color: colors.textSecondary,
       fontSize: Typography.sizes.sm,
       fontWeight: Typography.weights.bold,
       width: 36,
+    },
+    totalLabelAndroid: {
+      fontSize: Typography.sizes.xs,
+      width: 30,
     },
     totalValue: {
       color: colors.textPrimary,
@@ -450,5 +478,9 @@ const getStyles = (colors: any) =>
       fontWeight: Typography.weights.heavy,
       width: 36,
       textAlign: 'right',
+    },
+    totalValueAndroid: {
+      fontSize: Typography.sizes.sm,
+      width: 30,
     },
   });

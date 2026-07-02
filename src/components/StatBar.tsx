@@ -1,7 +1,7 @@
 // © fhamyla
 
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -77,27 +77,27 @@ const getStyles = (colors: any) =>
     container: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: Spacing.sm,
+      marginBottom: Platform.OS === 'android' ? Spacing.xs : Spacing.sm,
     },
     label: {
       color: colors.textSecondary,
-      fontSize: Typography.sizes.sm,
+      fontSize: Platform.OS === 'android' ? Typography.sizes.xs : Typography.sizes.sm,
       fontWeight: Typography.weights.semibold,
-      width: 36,
+      width: Platform.OS === 'android' ? 30 : 36,
     },
     value: {
       color: colors.textPrimary,
-      fontSize: Typography.sizes.sm,
+      fontSize: Platform.OS === 'android' ? Typography.sizes.xs : Typography.sizes.sm,
       fontWeight: Typography.weights.bold,
-      width: 36,
+      width: Platform.OS === 'android' ? 30 : 36,
       textAlign: 'right',
-      marginRight: Spacing.md,
+      marginRight: Platform.OS === 'android' ? Spacing.sm : Spacing.md,
     },
     trackContainer: {
       flex: 1,
     },
     track: {
-      height: 6,
+      height: Platform.OS === 'android' ? 4 : 6,
       backgroundColor: colors.surfaceLight,
       borderRadius: BorderRadius.pill,
       overflow: 'hidden',
