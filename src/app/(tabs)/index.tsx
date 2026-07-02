@@ -4,8 +4,8 @@ import React, { useState, useMemo, useCallback } from 'react';
 import {
   View,
   Text,
-  FlatList,
   TextInput,
+  FlatList,
   StyleSheet,
   ActivityIndicator,
   RefreshControl,
@@ -67,6 +67,55 @@ export default function HomeScreen() {
     []
   );
 
+  const renderHeader = useCallback(() => (
+    <>
+      {/* Header */}
+      <View style={styles.headerRow}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Pokédex</Text>
+          <Text style={styles.subtitle}>
+            {pokemon.length} Pokémon loaded
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={styles.themeToggleBtn}
+          onPress={toggleTheme}
+          activeOpacity={0.7}
+        >
+          <Ionicons
+            name={isDark ? 'sunny-outline' : 'moon-outline'}
+            size={20}
+            color={colors.textPrimary}
+          />
+        </TouchableOpacity>
+      </View>
+
+      {/* Search bar */}
+      <View style={styles.searchContainer}>
+        <Text style={styles.searchIcon}>🔍</Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search by name or number..."
+          placeholderTextColor={colors.textMuted}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          autoCorrect={false}
+          autoCapitalize="none"
+        />
+      </View>
+    </>
+  ), [pokemon.length, colors, isDark, toggleTheme, searchQuery, styles]);
+
+  const renderEmpty = useCallback(() => {
+    if (!searchQuery) return null;
+    return (
+      <EmptyState
+        title="No Pokémon found"
+        subtitle={`No results for "${searchQuery}"`}
+      />
+    );
+  }, [searchQuery]);
+
   if (loading) {
     return (
       <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -118,68 +167,29 @@ export default function HomeScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Header */}
-      <View style={styles.headerRow}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Pokédex</Text>
-          <Text style={styles.subtitle}>
-            {pokemon.length} Pokémon loaded
-          </Text>
-        </View>
-        <TouchableOpacity
-          style={styles.themeToggleBtn}
-          onPress={toggleTheme}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name={isDark ? 'sunny-outline' : 'moon-outline'}
-            size={20}
-            color={colors.textPrimary}
+      <FlatList
+        style={styles.flatList}
+        data={filteredPokemon}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        numColumns={2}
+        contentContainerStyle={styles.gridContent}
+        columnWrapperStyle={styles.columnWrapper}
+        showsVerticalScrollIndicator={true}
+        scrollEnabled={true}
+        onEndReached={searchQuery ? undefined : loadMore}
+        onEndReachedThreshold={0.5}
+        ListHeaderComponent={renderHeader}
+        ListFooterComponent={renderFooter}
+        ListEmptyComponent={renderEmpty}
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={refresh}
+            tintColor={colors.primary}
           />
-        </TouchableOpacity>
-      </View>
-
-      {/* Search bar */}
-      <View style={styles.searchContainer}>
-        <Text style={styles.searchIcon}>🔍</Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search by name or number..."
-          placeholderTextColor={colors.textMuted}
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-          autoCorrect={false}
-          autoCapitalize="none"
-        />
-      </View>
-
-      {/* Pokemon grid */}
-      {filteredPokemon.length === 0 ? (
-        <EmptyState
-          title="No Pokémon found"
-          subtitle={`No results for "${searchQuery}"`}
-        />
-      ) : (
-        <FlatList
-          data={filteredPokemon}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-          numColumns={2}
-          contentContainerStyle={styles.gridContent}
-          columnWrapperStyle={styles.columnWrapper}
-          showsVerticalScrollIndicator={false}
-          onEndReached={searchQuery ? undefined : loadMore}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={renderFooter}
-          refreshControl={
-            <RefreshControl
-              refreshing={false}
-              onRefresh={refresh}
-              tintColor={colors.primary}
-            />
-          }
-        />
-      )}
+        }
+      />
     </View>
   );
 }
@@ -241,6 +251,9 @@ const getStyles = (colors: any) =>
       color: colors.textPrimary,
       fontSize: Typography.sizes.base,
       paddingVertical: Spacing.md,
+    },
+    flatList: {
+      flex: 1,
     },
     gridContent: {
       paddingHorizontal: Spacing.base,

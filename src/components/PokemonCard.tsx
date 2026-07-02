@@ -1,14 +1,15 @@
 // © fhamyla
 
-import React from 'react';
-import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
+import React, { useCallback } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-} from 'react-native-reanimated';
 import { TypeBadge } from './TypeBadge';
 import {
   Typography,
@@ -23,8 +24,6 @@ import { useTheme } from '@/context/ThemeContext';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const CARD_WIDTH = (SCREEN_WIDTH - Spacing.base * 3) / 2;
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-
 interface PokemonCardProps {
   id: number;
   name: string;
@@ -36,32 +35,18 @@ export function PokemonCard({ id, name, sprite, types }: PokemonCardProps) {
   const router = useRouter();
   const { colors, isDark } = useTheme();
   const styles = getStyles(colors);
-  const scale = useSharedValue(1);
   const primaryType = types[0] ?? 'normal';
   const typeColor = getTypeColor(primaryType);
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
-
-  const handlePressIn = () => {
-    scale.value = withSpring(0.95, { damping: 15, stiffness: 200 });
-  };
-
-  const handlePressOut = () => {
-    scale.value = withSpring(1, { damping: 15, stiffness: 200 });
-  };
-
-  const handlePress = () => {
+  const handlePress = useCallback(() => {
     router.push(`/pokemon/${id}`);
-  };
+  }, [router, id]);
 
   return (
-    <AnimatedPressable
-      style={[styles.card, animatedStyle]}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
+    <TouchableOpacity
       onPress={handlePress}
+      activeOpacity={0.7}
+      style={styles.card}
     >
       {/* Accent glow */}
       <View
@@ -103,7 +88,7 @@ export function PokemonCard({ id, name, sprite, types }: PokemonCardProps) {
           <TypeBadge key={type} typeName={type} size="sm" />
         ))}
       </View>
-    </AnimatedPressable>
+    </TouchableOpacity>
   );
 }
 

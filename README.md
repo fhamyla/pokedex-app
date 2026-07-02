@@ -61,6 +61,7 @@ npx expo run:android
 
 ### Core
 - ✅ Fetch Pokémon data on mount with infinite scroll pagination
+- ✅ Vertical scrollable screens (supports click and drag scroll on simulators and touch drag on devices)
 - ✅ Display Pokémon in a beautiful 2-column grid
 - ✅ Handle loading states with animated skeleton placeholders
 - ✅ Handle errors gracefully with retry functionality

@@ -111,13 +111,14 @@ export default function FavoritesScreen() {
         />
       ) : (
         <FlatList
+          style={styles.flatList}
           data={pokemonData}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
           numColumns={2}
           contentContainerStyle={styles.gridContent}
           columnWrapperStyle={styles.columnWrapper}
-          showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={true}
         />
       )}
     </View>
@@ -166,7 +167,11 @@ const getStyles = (colors: any) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
+    flatList: {
+      flex: 1,
+    },
     gridContent: {
+      flexGrow: 1,
       paddingHorizontal: Spacing.base,
       paddingBottom: Spacing.xxxl,
     },

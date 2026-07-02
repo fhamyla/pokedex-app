@@ -86,7 +86,7 @@ export default function PokemonDetailScreen() {
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={{ paddingBottom: insets.bottom + Spacing.xxxl }}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={true}
       >
         {/* ─── Hero Section ──────────────────────────────────── */}
         <View style={[styles.heroSection, { backgroundColor: typeColor + (isDark ? '20' : '15') }]}>
@@ -184,18 +184,19 @@ export default function PokemonDetailScreen() {
           </View>
 
           {/* ─── Abilities Card ───────────────────────────── */}
-          <View style={styles.card}>
-            <Text style={styles.sectionTitle}>Abilities</Text>
+          <View style={[styles.card, Platform.OS === 'android' && styles.smallCard]}>
+            <Text style={[styles.sectionTitle, Platform.OS === 'android' && styles.sectionTitleAndroid]}>Abilities</Text>
             <View style={styles.abilitiesRow}>
               {pokemon.abilities.map((a) => (
                 <View
                   key={a.ability.name}
                   style={[
                     styles.abilityBadge,
+                    Platform.OS === 'android' && styles.abilityBadgeAndroid,
                     a.is_hidden && styles.abilityHidden,
                   ]}
                 >
-                  <Text style={styles.abilityText}>
+                  <Text style={[styles.abilityText, Platform.OS === 'android' && styles.abilityTextAndroid]}>
                     {capitalize(a.ability.name.replace('-', ' '))}
                   </Text>
                   {a.is_hidden && (
@@ -433,6 +434,11 @@ const getStyles = (colors: any) =>
       paddingVertical: Spacing.sm,
       borderRadius: BorderRadius.md,
     },
+    abilityBadgeAndroid: {
+      paddingHorizontal: Spacing.sm,
+      paddingVertical: Spacing.xs,
+      borderRadius: BorderRadius.sm,
+    },
     abilityHidden: {
       borderWidth: 1,
       borderColor: colors.accent + '40',
@@ -442,6 +448,9 @@ const getStyles = (colors: any) =>
       color: colors.textPrimary,
       fontSize: Typography.sizes.md,
       fontWeight: Typography.weights.medium,
+    },
+    abilityTextAndroid: {
+      fontSize: Typography.sizes.sm,
     },
     hiddenLabel: {
       color: colors.accent,
